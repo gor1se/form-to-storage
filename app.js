@@ -36,6 +36,10 @@ app.get("/find", (req, res) => {
     res.render("pages/find", { results: [] });
 });
 
+app.get("/delete", (req, res) => {
+    res.render("pages/delete");
+});
+
 app.post("/find", (req, res) => {
     let dataJson = fs.readFileSync("data.json", "utf-8");
     let data = JSON.parse(dataJson);
@@ -93,7 +97,6 @@ app.post("/add", (req, res) => {
     data.push(userObj);
     dataJson = JSON.stringify(data);
     fs.writeFileSync("data.json", dataJson, "utf-8");
-    res.render("Erfolgreich");
     let dataJsonNew = fs.readFileSync("data.json", "utf-8");
     let dataNew = JSON.parse(dataJson);
     res.render("pages/show", {
@@ -101,24 +104,84 @@ app.post("/add", (req, res) => {
     });
 });
 
+app.post("/delete", (req, res) => {
+    let dataJson = fs.readFileSync("data.json", "utf-8");
+    let data = JSON.parse(dataJson);
+    let results_1 = [];
+    let results_2 = [];
+    let results_3 = [];
+    let results_4 = [];
+
+    data.forEach(date => {
+        if (
+            date.Firma === req.body.searchCompany ||
+            req.body.searchCompany === ""
+        ) {
+            results_1.push(date);
+        }
+    });
+    results_1.forEach(date => {
+        if (
+            date.Vorname === req.body.searchFirstName ||
+            req.body.searchFirstName === ""
+        ) {
+            results_2.push(date);
+        }
+    });
+    results_2.forEach(date => {
+        if (
+            date.Nachname === req.body.searchLastName ||
+            req.body.searchLastName === ""
+        ) {
+            results_3.push(date);
+        }
+    });
+    results_3.forEach(date => {
+        if (date.Stadt === req.body.searchCity || req.body.searchCity === "") {
+            results_4.push(date);
+        }
+    });
+
+    if (results_4.length === 1) {
+        let filteredArray = data.filter(element => {
+            return element !== results_4[0];
+        });
+
+        let filteredData = JSON.stringify(filteredArray);
+        fs.writeFileSync("data.json", filteredData, "utf-8");
+
+        res.render("pages/show", {
+            data: filteredArray,
+        });
+    } else {
+        res.render("pages/show", {
+            data: data,
+        });
+    }
+});
+
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });
 
-/*TODO:
-    Startseite:
-    Hier soll der Kunde ganz einfach zwischen Schaltflächen wählen können.
-    Es soll folgende Schaltflächen geben: Kunde hinzufügen, Kunde suchen, Kunden anzeigen, Kunde löschen
-    Kunde hinzufügen:
-    Im Prinzip ist die Funktionalität hierfür schon vorhanden. Nur wird das Formular und der Datensatz noch etwas geändert.
-    Ein Kunde hat folgende Felder: Firma, Vorname, Nachname, Stadt, Postleitzahl, Straße, Hausnummer, Adresszusatz, Produkt.
-    Es gibt folgende Produkte: Gemüsekiste Basic, Gemüsekiste Pro, Gemüsekiste Deluxe
-    Kunde suchen:
-    Auf dieser Seite kann nach Kunden gesucht werden. Gefiltert wird nach den folgenden Kriterien:
-    Postleitzahl, Firma, Vorname, Nachname, Produkt
-    Kunden anzeigen:
-    Auf dieser Seite werden alle Kunden tabellarisch angezeigt.
-    Später könnte man noch eine Filterfunktion in den Kopf der Tabelle integrieren.
-    Kunde löschen:
-    Ähnlich wie Kunde suchen. Mit dem unterschied, dass Kundendaten auch gelöscht werden können
-*/
+// TODO: 1.
+// EJS Header ergänzen. In den einzelnen Dateien soll nur noch HTML-Body code stehen
+
+// TODO: 2.
+// Footer partial erstellen, kleiner Hinweis auf Impressum und Copyright
+// Beachte Footer Position
+
+// TODO: 3.
+// Eigenes kleines Notification Framework erstellen.
+// Kleine Flags, die unten in der linken Ecke erscheinen und unterschiedliche Typen haben können (Unterschiedliche Farben)
+// Möglicherweise verschwinden nach kurzer Zeit
+// Flags wo nötig und sinnvoll implementieren
+
+// TODO: 4.
+// Pflichtfelder für die Kundenerstellung hinzufügen
+// Lokales Skript überprüft eingaben und schaltet Erstellen-Button frei
+// Defaultmäßig ist der Button deaktiviert
+
+// TODO: 5.
+// Neue versteckte Post Seite, die die gesamte data.json in eine CSV Datei abspeichert
+// CSV Datei Testweise in Excel öffnen

@@ -157,7 +157,7 @@ body {
     text-align: center;
 }
 
-.show-table tr:nth-of-type(2) {
+.show-table tr:nth-of-type(2n) {
     background-color: lavender;
 }
 
