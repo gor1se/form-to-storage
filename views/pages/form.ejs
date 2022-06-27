@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" type="text/css" href="css/styles.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+            rel="stylesheet"
+        />
+        <title>Document</title>
+    </head>
+    <body>
+        <%- include('../partials/header.ejs') %>
+        <div class="add-form-container">
+            <h2>Kunde hinzufügen</h2>
+            <form action="" method="post" class="add-form">
+                <input
+                    type="text"
+                    name="firma"
+                    id="firma"
+                    placeholder="Firma"
+                />
+                <input
+                    type="text"
+                    name="fName"
+                    id="fName"
+                    placeholder="Vorname"
+                />
+                <input
+                    type="text"
+                    name="lName"
+                    id="lName"
+                    placeholder="Nachname"
+                />
+                <input type="text" name="city" id="city" placeholder="Stadt" />
+                <input
+                    type="text"
+                    name="plz"
+                    id="plz"
+                    placeholder="Postleitzahl"
+                />
+                <input
+                    type="text"
+                    name="strasse"
+                    id="strasse"
+                    placeholder="Straße"
+                />
+                <input
+                    type="text"
+                    name="Hausnummer"
+                    id="Hausnummer"
+                    placeholder="Hausnummer"
+                />
+                <input
+                    type="text"
+                    name="Adresszusatz"
+                    id="Adresszusatz"
+                    placeholder="Adresszusatz"
+                />
+                <select id="Produkt" name="Produkt">
+                    <option value="GeKiBasic">Gemüsekiste Basic</option>
+                    <option value="GeKiPro">Gemüsekiste Pro</option>
+                    <option value="GeKiDeluxe">Gemüsekiste Deluxe</option>
+                </select>
+                <button class="add-form-btn" type="submit">
+                    Kunde hinzufügen
+                </button>
+            </form>
+        </div>
+    </body>
+</html>
