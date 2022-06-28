@@ -1,76 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" type="text/css" href="css/styles.css" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
-            rel="stylesheet"
-        />
-        <title>Suchen</title>
-    </head>
+<%- include('../partials/header.ejs') %>
+<div class="search-options">
+    <form action="" method="post">
+        <input type="text" name="searchCompany" id="" placeholder="Firma" />
+        <input type="text" name="searchFirstName" id="" placeholder="Vorname" />
+        <input type="text" name="searchLastName" id="" placeholder="Nachname" />
+        <input type="text" name="searchCity" id="" placeholder="Stadt" />
+        <button type="submit" class="btn-primary">suchen</button>
+    </form>
+</div>
 
-    <body>
-        <%- include('../partials/header.ejs') %>
-        <div class="search-options">
-            <form action="" method="post">
-                <input
-                    type="text"
-                    name="searchCompany"
-                    id=""
-                    placeholder="Firma"
-                />
-                <input
-                    type="text"
-                    name="searchFirstName"
-                    id=""
-                    placeholder="Vorname"
-                />
-                <input
-                    type="text"
-                    name="searchLastName"
-                    id=""
-                    placeholder="Nachname"
-                />
-                <input
-                    type="text"
-                    name="searchCity"
-                    id=""
-                    placeholder="Stadt"
-                />
-                <button type="submit" class="btn-primary">suchen</button>
-            </form>
-        </div>
-
-        <table class="show-table">
-            <tr>
-                <th>Firma</th>
-                <th>Vorname</th>
-                <th>Nachname</th>
-                <th>Stadt</th>
-                <th>Postleitzahl</th>
-                <th>Straße</th>
-                <th>Hausnummer</th>
-                <th>Adresszusatz</th>
-                <th>Produkt</th>
-            </tr>
-            <% results.forEach((result)=> { %>
-            <tr>
-                <td><%= result.Firma %></td>
-                <td><%= result.Vorname %></td>
-                <td><%= result.Nachname %></td>
-                <td><%= result.Postleitzahl %></td>
-                <td><%= result.Stadt %></td>
-                <td><%= result.Straße %></td>
-                <td><%= result.Hausnummer %></td>
-                <td><%= result.Adresszusatz %></td>
-                <td><%= result.Produkt %></td>
-            </tr>
-            <% }) %>
-        </table>
-    </body>
-</html>
+<table class="show-table">
+    <tr>
+        <th>Firma</th>
+        <th>Vorname</th>
+        <th>Nachname</th>
+        <th>Stadt</th>
+        <th>Postleitzahl</th>
+        <th>Straße</th>
+        <th>Hausnummer</th>
+        <th>Adresszusatz</th>
+        <th>Produkt</th>
+    </tr>
+    <% results.forEach((result)=> { %>
+    <tr>
+        <td><%= result.Firma %></td>
+        <td><%= result.Vorname %></td>
+        <td><%= result.Nachname %></td>
+        <td><%= result.Postleitzahl %></td>
+        <td><%= result.Stadt %></td>
+        <td><%= result.Straße %></td>
+        <td><%= result.Hausnummer %></td>
+        <td><%= result.Adresszusatz %></td>
+        <td><%= result.Produkt %></td>
+    </tr>
+    <% }) %>
+</table>
+<%- include('../partials/footer.ejs') %>

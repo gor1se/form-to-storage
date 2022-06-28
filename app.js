@@ -16,12 +16,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 const port = 3000;
 
+let flag = {
+    content: "",
+    type: "",
+};
+
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "./public", "index.html"));
+    res.render("pages/index", { flag: flag });
 });
 
 app.get("/add", (req, res) => {
-    res.render("pages/form");
+    res.render("pages/form", { flag: flag });
 });
 
 app.get("/show", (req, res) => {
@@ -29,15 +34,17 @@ app.get("/show", (req, res) => {
     let data = JSON.parse(dataJson);
     res.render("pages/show", {
         data: data,
+        flag: flag,
     });
 });
 
 app.get("/find", (req, res) => {
-    res.render("pages/find", { results: [] });
+    res.render("pages/find", { results: [], flag: flag });
+    flag.type = "";
 });
 
 app.get("/delete", (req, res) => {
-    res.render("pages/delete");
+    res.render("pages/delete", { flag: flag });
 });
 
 app.post("/find", (req, res) => {
@@ -76,7 +83,7 @@ app.post("/find", (req, res) => {
             results_4.push(date);
         }
     });
-    res.render("pages/find", { results: results_4 });
+    res.render("pages/find", { results: results_4, flag: flag });
 });
 
 app.post("/add", (req, res) => {
@@ -99,9 +106,13 @@ app.post("/add", (req, res) => {
     fs.writeFileSync("data.json", dataJson, "utf-8");
     let dataJsonNew = fs.readFileSync("data.json", "utf-8");
     let dataNew = JSON.parse(dataJson);
+    flag.type = "success";
+    flag.content = "Kunde wurde erfolgreich angelegt!";
     res.render("pages/show", {
         data: dataNew,
+        flag: flag,
     });
+    flag.type = "";
 });
 
 app.post("/delete", (req, res) => {
@@ -150,28 +161,35 @@ app.post("/delete", (req, res) => {
         let filteredData = JSON.stringify(filteredArray);
         fs.writeFileSync("data.json", filteredData, "utf-8");
 
+        flag.type = "success";
+        flag.content = "User wurde erfolgreich gelöscht!";
         res.render("pages/show", {
             data: filteredArray,
+            flag: flag,
         });
     } else {
+        flag.type = "failure";
+        flag.content = "Kein eindeutiger Treffer!";
         res.render("pages/show", {
             data: data,
+            flag: flag,
         });
     }
+    flag.type = "";
 });
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });
 
-// TODO: 1.
+// OK: 1.
 // EJS Header ergänzen. In den einzelnen Dateien soll nur noch HTML-Body code stehen
 
-// TODO: 2.
+// OK: 2.
 // Footer partial erstellen, kleiner Hinweis auf Impressum und Copyright
 // Beachte Footer Position
 
-// TODO: 3.
+// OK: 3.
 // Eigenes kleines Notification Framework erstellen.
 // Kleine Flags, die unten in der linken Ecke erscheinen und unterschiedliche Typen haben können (Unterschiedliche Farben)
 // Möglicherweise verschwinden nach kurzer Zeit

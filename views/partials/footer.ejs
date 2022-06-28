@@ -1,0 +1,34 @@
+
+   </div>
+   <footer id="footer">
+        <div class="footer-content">
+            <div class="footer-copyright">© Copyright 2021 by Kairos GmbH</div>
+            <div class="footer-seperator"> | </div>
+            <div class="footer-link">Impressum</div>
+            <div class="footer-seperator"> | </div>
+            <div class="footer-link">Datenschutz</div>
+        </div>
+   </footer>
+ </div>
+    <!-- Hier Flag einfügen. Erst auf Inhalt überprüfen, dann Typunterscheidung, dann richtige Klasse geben -->
+    <!-- Vorerst soll es 3 Klassen geben: flag-success, flag-failure, flag-information -->
+   <% if(flag.content !== ''){ %>
+    <%    if(flag.type === 'success'){ %>
+            <div class="flag flag-success">
+                <div class="flag-accent-success"></div>
+                <div class="flag-content flag-success-content"><%=flag.content%></div>
+            </div>
+    <%    } else if(flag.type === 'failure'){ %>
+            <div class="flag flag-failure">
+                <div class="flag-accent-failure"></div>
+                <div class="flag-content flag-failure-content"><%=flag.content%></div>
+            </div>
+    <%    } else if(flag.type === 'info'){ %>
+            <div class="flag flag-info">
+                <div class="flag-accent-info"></div>
+                <div class="flag-content flag-info-content"><%=flag.content%></div>
+            </div>
+    <%    } %>
+    <% } %>
+     </body>
+</html>

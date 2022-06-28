@@ -1,45 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" type="text/css" href="css/styles.css" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
-            rel="stylesheet"
-        />
-        <title>Document</title>
-    </head>
-    <body>
-        <%- include('../partials/header.ejs') %>
-        <table class="show-table">
-            <tr>
-                <th>Firma</th>
-                <th>Vorname</th>
-                <th>Nachname</th>
-                <th>Stadt</th>
-                <th>Postleitzahl</th>
-                <th>Straße</th>
-                <th>Hausnummer</th>
-                <th>Adresszusatz</th>
-                <th>Produkt</th>
-            </tr>
-            <% data.forEach((date)=> { %>
-            <tr>
-                <td><%= date.Firma %></td>
-                <td><%= date.Vorname %></td>
-                <td><%= date.Nachname %></td>
-                <td><%= date.Postleitzahl %></td>
-                <td><%= date.Stadt %></td>
-                <td><%= date.Straße %></td>
-                <td><%= date.Hausnummer %></td>
-                <td><%= date.Adresszusatz %></td>
-                <td><%= date.Produkt %></td>
-            </tr>
-            <% }) %>
-        </table>
-    </body>
-</html>
+<%- include('../partials/header.ejs') %>
+<table class="show-table">
+    <tr>
+        <th>Firma</th>
+        <th>Vorname</th>
+        <th>Nachname</th>
+        <th>Stadt</th>
+        <th>Postleitzahl</th>
+        <th>Straße</th>
+        <th>Hausnummer</th>
+        <th>Adresszusatz</th>
+        <th>Produkt</th>
+    </tr>
+    <% data.forEach((date)=> { %>
+    <tr>
+        <td><%= date.Firma %></td>
+        <td><%= date.Vorname %></td>
+        <td><%= date.Nachname %></td>
+        <td><%= date.Postleitzahl %></td>
+        <td><%= date.Stadt %></td>
+        <td><%= date.Straße %></td>
+        <td><%= date.Hausnummer %></td>
+        <td><%= date.Adresszusatz %></td>
+        <td><%= date.Produkt %></td>
+    </tr>
+    <% }) %>
+</table>
+<%- include('../partials/footer.ejs') %>
