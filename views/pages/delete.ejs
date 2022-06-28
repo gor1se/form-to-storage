@@ -5,7 +5,65 @@
         <input type="text" name="searchFirstName" id="" placeholder="Vorname" />
         <input type="text" name="searchLastName" id="" placeholder="Nachname" />
         <input type="text" name="searchCity" id="" placeholder="Stadt" />
-        <button type="submit" class="btn-primary">löschen</button>
+        <button type="submit" class="btn-primary">suchen</button>
     </form>
 </div>
+
+<table class="show-table">
+    <tr>
+        <th>Firma</th>
+        <th>Vorname</th>
+        <th>Nachname</th>
+        <th>Postleitzahl</th>
+        <th>Stadt</th>
+        <th>Straße</th>
+        <th>Hausnummer</th>
+        <th>Adresszusatz</th>
+        <th>Produkt</th>
+        <th></th>
+    </tr>
+    <% results.forEach((result)=> { %>
+    <tr>
+        <td><%= result.Firma %></td>
+        <td><%= result.Vorname %></td>
+        <td><%= result.Nachname %></td>
+        <td><%= result.Postleitzahl %></td>
+        <td><%= result.Stadt %></td>
+        <td><%= result.Straße %></td>
+        <td><%= result.Hausnummer %></td>
+        <td><%= result.Adresszusatz %></td>
+        <td><%= result.Produkt %></td>
+        <td>
+            <form action="/delete-item" method="POST">
+                <input
+                    type="hidden"
+                    name="searchCompany"
+                    value="<%= result.Firma %>"
+                />
+                <input
+                    type="hidden"
+                    name="searchFirstName"
+                    value="<%= result.Vorname %>"
+                />
+                <input
+                    type="hidden"
+                    name="searchLastName"
+                    value="<%= result.Nachname %>"
+                />
+                <input
+                    type="hidden"
+                    name="searchCity"
+                    value="<%= result.Stadt %>"
+                />
+                <input
+                    type="image"
+                    class="icon-bin"
+                    src="img/bin.png"
+                    alt="Submit"
+                />
+            </form>
+        </td>
+    </tr>
+    <% }) %>
+</table>
 <%- include('../partials/footer.ejs', {flag: flag}) %>

@@ -303,3 +303,10 @@ tr {
 .search-options input {
     width: 180px;
 }
+
+/* AREA: Delete */
+
+.icon-bin {
+    width: 32px;
+    height: auto;
+}

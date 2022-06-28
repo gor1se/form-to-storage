@@ -44,13 +44,15 @@ app.get("/find", (req, res) => {
 });
 
 app.get("/delete", (req, res) => {
-    res.render("pages/delete", { flag: flag });
+    let dataJson = fs.readFileSync("data.json", "utf-8");
+    let data = JSON.parse(dataJson);
+
+    res.render("pages/delete", { results: data, flag: flag });
 });
 
 app.get("/data-to-csv", (req, res) => {
     let dataJson = fs.readFileSync("data.json", "utf-8");
     let data = JSON.parse(dataJson);
-    // Funktion selbst schreiben
     let csvdata = ``;
     csvdata += `sep=,
 Firma,Vorname,Nachname,Stadt,Postleitzahl,Straße,Hausnummer,Adresszusatz,Produkt`;
@@ -68,40 +70,21 @@ ${date.Firma},${date.Vorname},${date.Nachname},${date.Stadt},${date.Postleitzahl
 app.post("/find", (req, res) => {
     let dataJson = fs.readFileSync("data.json", "utf-8");
     let data = JSON.parse(dataJson);
-    let results_1 = [];
-    let results_2 = [];
-    let results_3 = [];
-    let results_4 = [];
-    data.forEach(date => {
-        if (
-            date.Firma === req.body.searchCompany ||
-            req.body.searchCompany === ""
-        ) {
-            results_1.push(date);
-        }
+
+    let filteredArray = data.filter(element => {
+        return (
+            (element.Firma === req.body.searchCompany ||
+                req.body.searchCompany === "") &&
+            (element.Vorname === req.body.searchFirstName ||
+                req.body.searchFirstName === "") &&
+            (element.Nachname === req.body.searchLastName ||
+                req.body.searchLastName === "") &&
+            (element.Stadt === req.body.searchCity ||
+                req.body.searchCity === "")
+        );
     });
-    results_1.forEach(date => {
-        if (
-            date.Vorname === req.body.searchFirstName ||
-            req.body.searchFirstName === ""
-        ) {
-            results_2.push(date);
-        }
-    });
-    results_2.forEach(date => {
-        if (
-            date.Nachname === req.body.searchLastName ||
-            req.body.searchLastName === ""
-        ) {
-            results_3.push(date);
-        }
-    });
-    results_3.forEach(date => {
-        if (date.Stadt === req.body.searchCity || req.body.searchCity === "") {
-            results_4.push(date);
-        }
-    });
-    res.render("pages/find", { results: results_4, flag: flag });
+
+    res.render("pages/find", { results: filteredArray, flag: flag });
 });
 
 app.post("/add", (req, res) => {
@@ -136,64 +119,50 @@ app.post("/add", (req, res) => {
 app.post("/delete", (req, res) => {
     let dataJson = fs.readFileSync("data.json", "utf-8");
     let data = JSON.parse(dataJson);
-    let results_1 = [];
-    let results_2 = [];
-    let results_3 = [];
-    let results_4 = [];
 
-    data.forEach(date => {
-        if (
-            date.Firma === req.body.searchCompany ||
-            req.body.searchCompany === ""
-        ) {
-            results_1.push(date);
-        }
-    });
-    results_1.forEach(date => {
-        if (
-            date.Vorname === req.body.searchFirstName ||
-            req.body.searchFirstName === ""
-        ) {
-            results_2.push(date);
-        }
-    });
-    results_2.forEach(date => {
-        if (
-            date.Nachname === req.body.searchLastName ||
-            req.body.searchLastName === ""
-        ) {
-            results_3.push(date);
-        }
-    });
-    results_3.forEach(date => {
-        if (date.Stadt === req.body.searchCity || req.body.searchCity === "") {
-            results_4.push(date);
-        }
+    let filteredArray = data.filter(element => {
+        return (
+            (element.Firma === req.body.searchCompany ||
+                req.body.searchCompany === "") &&
+            (element.Vorname === req.body.searchFirstName ||
+                req.body.searchFirstName === "") &&
+            (element.Nachname === req.body.searchLastName ||
+                req.body.searchLastName === "") &&
+            (element.Stadt === req.body.searchCity ||
+                req.body.searchCity === "")
+        );
     });
 
-    if (results_4.length === 1) {
-        let filteredArray = data.filter(element => {
-            return element !== results_4[0];
-        });
+    res.render("pages/delete", { results: filteredArray, flag: flag });
+});
 
-        let filteredData = JSON.stringify(filteredArray);
-        fs.writeFileSync("data.json", filteredData, "utf-8");
+app.post("/delete-item", (req, res) => {
+    let deleteObj = {
+        Firma: req.body.searchCompany,
+        Vorname: req.body.searchFirstName,
+        Nachname: req.body.searchLastName,
+        Stadt: req.body.searchCity,
+    };
 
-        flag.type = "success";
-        flag.content = "User wurde erfolgreich gelöscht!";
-        res.render("pages/show", {
-            data: filteredArray,
-            flag: flag,
-        });
-    } else {
-        flag.type = "failure";
-        flag.content = "Kein eindeutiger Treffer!";
-        res.render("pages/show", {
-            data: data,
-            flag: flag,
-        });
-    }
-    flag.type = "";
+    let dataJson = fs.readFileSync("data.json", "utf-8");
+    let data = JSON.parse(dataJson);
+
+    let newData = data.filter(date => {
+        return (
+            date.Firma !== deleteObj.Firma ||
+            date.Vorname !== deleteObj.Vorname ||
+            date.Nachname !== deleteObj.Nachname ||
+            date.Stadt !== deleteObj.Stadt
+        );
+    });
+
+    let filteredData = JSON.stringify(newData);
+    fs.writeFileSync("data.json", filteredData, "utf-8");
+
+    flag.type = "success";
+    flag.content = `Der Datensatz ${deleteObj.Firma}, ${deleteObj.Vorname}, ${deleteObj.Nachname}, ${deleteObj.Stadt} wurder erfolgreich gelöscht`;
+
+    res.render("pages/delete", { results: [], flag: flag });
 });
 
 app.listen(port, () => {
@@ -222,24 +191,27 @@ app.listen(port, () => {
 // Neue versteckte Post Seite, die die gesamte data.json in eine CSV Datei abspeichert
 // CSV Datei Testweise in Excel öffnen
 
-// FIXME: 6.
+// OK: 6.
 // Bei Kunden anzeigen ist die Stadt und die Postleitzahl vertauscht
 // Bei Kunden suchen tritt das gleiche Problem auf
 
-// TODO: 7.
+// OK: 7.
 // Das Kunde löschen Feature überarbeiten
 // Erst sollen die Kunden gesucht werden
 // Bei allen Ergebnissen die erscheinen soll rechts ein Mülleimer Icon in einer neuen Spalte erscheinen
 // Dieses Icon ist auch ein Button. Nachdem der Button geklickt wird soll der Datensatz gelöscht werden und von der Ergebnisliste verschwinden
-// Die Suchkriterien sollen nicht verschwinden sondern erhalten bleiben.
-// Möglicherweise mit verschiedenen app.post lösen? Dabei könnte man verschiedene Werte an app.js versenden und so eine Fallunterscheidung durchführen.
 
 //TODO: 8.
 // Die Kunden anzeigen Seite überarbeiten
 // Auf die Jeweiligen Tabellenüberschriften sollte man klicken können um diese Entsprechend zu sortieren
 // Lösung ähnlich wie bei 7.?
+// Was für ein Default Filter soll angewendet werden?
 
-// TODO: 9
+// OK: 9
 // Filterfunktionen überarbeiten
 // Vier Arrays zu verwenden ist zu umständlich
-// Arrayfunktionen verwenden
+// Arrayfunktionen verwenden (Filterfunktion kombinieren)
+
+// TODO: 10.
+// Nach dem Löschen eines Elements sollen die Suchkriterien nicht verschwinden
+// Die Seite soll einfach nochmal Laden und die gleichen Suckkriterien nochmal durchlaufen lassen
