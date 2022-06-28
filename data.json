@@ -1,1 +1,35 @@
-[{"Firma":"Mimax AG","Vorname":"Maximilian","Nachname":"Scherer","Stadt":"Bremen","Postleitzahl":"37689","Straße":"Karlsstraße","Hausnummer":"3a","Adresszusatz":"","Produkt":"GeKiBasic"},{"Firma":"Bäckerei Müller","Vorname":"Petra","Nachname":"Müller","Stadt":"Berlin","Postleitzahl":"03586","Straße":"Leipziger Straße","Hausnummer":"12","Adresszusatz":"","Produkt":"GeKiBasic"}]
+[
+    {
+        "Firma": "Mimax AG",
+        "Vorname": "Maximilian",
+        "Nachname": "Scherer",
+        "Stadt": "Bremen",
+        "Postleitzahl": "37689",
+        "Straße": "Karlsstraße",
+        "Hausnummer": "3a",
+        "Adresszusatz": "",
+        "Produkt": "GeKiBasic"
+    },
+    {
+        "Firma": "Bäckerei Müller",
+        "Vorname": "Petra",
+        "Nachname": "Müller",
+        "Stadt": "Berlin",
+        "Postleitzahl": "03586",
+        "Straße": "Leipziger Straße",
+        "Hausnummer": "12",
+        "Adresszusatz": "",
+        "Produkt": "GeKiBasic"
+    },
+    {
+        "Firma": "Fischer KG",
+        "Vorname": "Florian",
+        "Nachname": "Fischer",
+        "Stadt": "Hamburg",
+        "Postleitzahl": "14533",
+        "Straße": "Elbenweg",
+        "Hausnummer": "7",
+        "Adresszusatz": "",
+        "Produkt": "GeKiPro"
+    }
+]

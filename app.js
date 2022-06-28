@@ -47,6 +47,24 @@ app.get("/delete", (req, res) => {
     res.render("pages/delete", { flag: flag });
 });
 
+app.get("/data-to-csv", (req, res) => {
+    let dataJson = fs.readFileSync("data.json", "utf-8");
+    let data = JSON.parse(dataJson);
+    // Funktion selbst schreiben
+    let csvdata = ``;
+    csvdata += `sep=,
+Firma,Vorname,Nachname,Stadt,Postleitzahl,Straße,Hausnummer,Adresszusatz,Produkt`;
+    data.forEach(date => {
+        csvdata += `
+${date.Firma},${date.Vorname},${date.Nachname},${date.Stadt},${date.Postleitzahl},${date.Straße},${date.Hausnummer},${date.Adresszusatz},${date.Produkt}`;
+    });
+    fs.writeFileSync("data.csv", csvdata, "utf-8");
+    flag.type = "success";
+    flag.content = "Daten erfolgreich als CSV abgespeichert!";
+    res.render("pages/index", { flag: flag });
+    flag.type = "";
+});
+
 app.post("/find", (req, res) => {
     let dataJson = fs.readFileSync("data.json", "utf-8");
     let data = JSON.parse(dataJson);
@@ -195,11 +213,33 @@ app.listen(port, () => {
 // Möglicherweise verschwinden nach kurzer Zeit
 // Flags wo nötig und sinnvoll implementieren
 
-// TODO: 4.
+// OK: 4.
 // Pflichtfelder für die Kundenerstellung hinzufügen
 // Lokales Skript überprüft eingaben und schaltet Erstellen-Button frei
 // Defaultmäßig ist der Button deaktiviert
 
-// TODO: 5.
+// OK: 5.
 // Neue versteckte Post Seite, die die gesamte data.json in eine CSV Datei abspeichert
 // CSV Datei Testweise in Excel öffnen
+
+// FIXME: 6.
+// Bei Kunden anzeigen ist die Stadt und die Postleitzahl vertauscht
+// Bei Kunden suchen tritt das gleiche Problem auf
+
+// TODO: 7.
+// Das Kunde löschen Feature überarbeiten
+// Erst sollen die Kunden gesucht werden
+// Bei allen Ergebnissen die erscheinen soll rechts ein Mülleimer Icon in einer neuen Spalte erscheinen
+// Dieses Icon ist auch ein Button. Nachdem der Button geklickt wird soll der Datensatz gelöscht werden und von der Ergebnisliste verschwinden
+// Die Suchkriterien sollen nicht verschwinden sondern erhalten bleiben.
+// Möglicherweise mit verschiedenen app.post lösen? Dabei könnte man verschiedene Werte an app.js versenden und so eine Fallunterscheidung durchführen.
+
+//TODO: 8.
+// Die Kunden anzeigen Seite überarbeiten
+// Auf die Jeweiligen Tabellenüberschriften sollte man klicken können um diese Entsprechend zu sortieren
+// Lösung ähnlich wie bei 7.?
+
+// TODO: 9
+// Filterfunktionen überarbeiten
+// Vier Arrays zu verwenden ist zu umständlich
+// Arrayfunktionen verwenden

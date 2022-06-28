@@ -74,6 +74,21 @@ body {
 
 /* AREA: Buttons */
 
+.add-form-btn {
+    background-color: var(--primary-blue);
+    color: var(--primary-white);
+    border: none;
+    outline: none;
+    padding: 0.8rem;
+    border-radius: 0.4rem;
+}
+
+.add-form-btn:hover {
+    cursor: pointer;
+    background-color: var(--primary-orange);
+    color: var(--primary-white);
+}
+
 .btn-primary {
     background-color: var(--primary-blue);
     color: var(--primary-white);
@@ -87,6 +102,16 @@ body {
     cursor: pointer;
     background-color: var(--primary-orange);
     color: var(--primary-white);
+}
+
+.disabled {
+    background-color: gray;
+    cursor: default;
+}
+
+.disabled:hover {
+    cursor: default;
+    background-color: darkgray;
 }
 
 /* AREA: Footer CSS */
@@ -226,20 +251,6 @@ body {
 .add-form * {
     margin: 2px;
     width: 100%;
-}
-
-.add-form-btn {
-    background-color: var(--primary-blue);
-    color: var(--primary-white);
-    border: none;
-    outline: none;
-    padding: 0.8rem;
-    border-radius: 0.4rem;
-}
-.add-form-btn:hover {
-    cursor: pointer;
-    background-color: var(--primary-orange);
-    color: var(--primary-white);
 }
 
 /* AREA: show */
