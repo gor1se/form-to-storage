@@ -1,5 +1,8 @@
 sep=,
 Firma,Vorname,Nachname,Stadt,Postleitzahl,Straße,Hausnummer,Adresszusatz,Produkt
 Mimax AG,Maximilian,Scherer,Bremen,37689,Karlsstraße,3a,,GeKiBasic
-Bäckerei Müller,Petra,Müller,Berlin,03586,Leipziger Straße,12,,GeKiBasic
 Fischer KG,Florian,Fischer,Hamburg,14533,Elbenweg,7,,GeKiPro
+Bäckerei Müller,Petra,Müller,Berlin,03586,Leipziger Straße,12,,GeKiBasic
+,Ingrid,Müller,Leipzig,06796,Schlossalle,8,,GeKiBasic
+,Maria,Schneller,Regensburg,93789,Brandenburger Straße,11,,GeKiBasic
+,Karin,Hintermeier,Regensburg,93784,Donauweg,5,2. OG,GeKiBasic

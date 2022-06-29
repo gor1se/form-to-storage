@@ -55,10 +55,10 @@ app.get("/data-to-csv", (req, res) => {
     let data = JSON.parse(dataJson);
     let csvdata = ``;
     csvdata += `sep=,
-Firma,Vorname,Nachname,Stadt,Postleitzahl,Straße,Hausnummer,Adresszusatz,Produkt`;
+Firma,Vorname,Nachname,Stadt,Postleitzahl,Strasse,Hausnummer,Adresszusatz,Produkt`;
     data.forEach(date => {
         csvdata += `
-${date.Firma},${date.Vorname},${date.Nachname},${date.Stadt},${date.Postleitzahl},${date.Straße},${date.Hausnummer},${date.Adresszusatz},${date.Produkt}`;
+${date.Firma},${date.Vorname},${date.Nachname},${date.Stadt},${date.Postleitzahl},${date.Strasse},${date.Hausnummer},${date.Adresszusatz},${date.Produkt}`;
     });
     fs.writeFileSync("data.csv", csvdata, "utf-8");
     flag.type = "success";
@@ -66,6 +66,8 @@ ${date.Firma},${date.Vorname},${date.Nachname},${date.Stadt},${date.Postleitzahl
     res.render("pages/index", { flag: flag });
     flag.type = "";
 });
+
+// Hier entsteht ein neuer Kommentar!
 
 app.post("/find", (req, res) => {
     let dataJson = fs.readFileSync("data.json", "utf-8");
@@ -94,7 +96,7 @@ app.post("/add", (req, res) => {
         Nachname: req.body.lName,
         Stadt: req.body.city,
         Postleitzahl: req.body.plz,
-        Straße: req.body.strasse,
+        Strasse: req.body.strasse,
         Hausnummer: req.body.Hausnummer,
         Adresszusatz: req.body.Adresszusatz,
         Produkt: req.body.Produkt,
@@ -165,6 +167,88 @@ app.post("/delete-item", (req, res) => {
     res.render("pages/delete", { results: [], flag: flag });
 });
 
+app.post("/filter-Firma", (req, res) => {
+    let dataJson = fs.readFileSync("data.json", "utf-8");
+    let data = JSON.parse(dataJson);
+
+    data.sort((a, b) => a.Firma.localeCompare(b.Firma));
+
+    res.render("pages/show", { data: data, flag: flag });
+});
+
+app.post("/filter-Vorname", (req, res) => {
+    let dataJson = fs.readFileSync("data.json", "utf-8");
+    let data = JSON.parse(dataJson);
+
+    data.sort((a, b) => a.Vorname.localeCompare(b.Vorname));
+
+    res.render("pages/show", { data: data, flag: flag });
+});
+
+app.post("/filter-Nachname", (req, res) => {
+    let dataJson = fs.readFileSync("data.json", "utf-8");
+    let data = JSON.parse(dataJson);
+
+    data.sort((a, b) => a.Nachname.localeCompare(b.Nachname));
+
+    res.render("pages/show", { data: data, flag: flag });
+});
+
+app.post("/filter-Postleitzahl", (req, res) => {
+    let dataJson = fs.readFileSync("data.json", "utf-8");
+    let data = JSON.parse(dataJson);
+
+    data.sort((a, b) => a.Postleitzahl.localeCompare(b.Postleitzahl));
+
+    res.render("pages/show", { data: data, flag: flag });
+});
+
+app.post("/filter-Stadt", (req, res) => {
+    let dataJson = fs.readFileSync("data.json", "utf-8");
+    let data = JSON.parse(dataJson);
+
+    data.sort((a, b) => a.Stadt.localeCompare(b.Stadt));
+
+    res.render("pages/show", { data: data, flag: flag });
+});
+
+app.post("/filter-Strasse", (req, res) => {
+    let dataJson = fs.readFileSync("data.json", "utf-8");
+    let data = JSON.parse(dataJson);
+
+    data.sort((a, b) => a.Strasse.localeCompare(b.Strasse));
+
+    res.render("pages/show", { data: data, flag: flag });
+});
+
+app.post("/filter-Hausnummer", (req, res) => {
+    let dataJson = fs.readFileSync("data.json", "utf-8");
+    let data = JSON.parse(dataJson);
+
+    data.sort((a, b) => {
+        return parseInt(a.Hausnummer, 10) - parseInt(b.Hausnummer, 10);
+    });
+    res.render("pages/show", { data: data, flag: flag });
+});
+
+app.post("/filter-Adresszusatz", (req, res) => {
+    let dataJson = fs.readFileSync("data.json", "utf-8");
+    let data = JSON.parse(dataJson);
+
+    data.sort((a, b) => a.Adresszusatz.localeCompare(b.Adresszusatz));
+
+    res.render("pages/show", { data: data, flag: flag });
+});
+
+app.post("/filter-Produkt", (req, res) => {
+    let dataJson = fs.readFileSync("data.json", "utf-8");
+    let data = JSON.parse(dataJson);
+
+    data.sort((a, b) => a.Produkt.localeCompare(b.Produkt));
+
+    res.render("pages/show", { data: data, flag: flag });
+});
+
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });
@@ -201,11 +285,14 @@ app.listen(port, () => {
 // Bei allen Ergebnissen die erscheinen soll rechts ein Mülleimer Icon in einer neuen Spalte erscheinen
 // Dieses Icon ist auch ein Button. Nachdem der Button geklickt wird soll der Datensatz gelöscht werden und von der Ergebnisliste verschwinden
 
-//TODO: 8.
+// OK: 8.
 // Die Kunden anzeigen Seite überarbeiten
 // Auf die Jeweiligen Tabellenüberschriften sollte man klicken können um diese Entsprechend zu sortieren
 // Lösung ähnlich wie bei 7.?
 // Was für ein Default Filter soll angewendet werden?
+// Indikator für angewendeten Filter anzeigen. Pfeil nach unten.
+// OK: Strasse in Strasse ändern
+// OK: Hausnummern werden nicht korrekt gefiltert
 
 // OK: 9
 // Filterfunktionen überarbeiten
@@ -215,3 +302,14 @@ app.listen(port, () => {
 // TODO: 10.
 // Nach dem Löschen eines Elements sollen die Suchkriterien nicht verschwinden
 // Die Seite soll einfach nochmal Laden und die gleichen Suckkriterien nochmal durchlaufen lassen
+
+// TODO: 11.
+// Flagsystem animieren
+// Eingangsanimation
+// Ausgangsanimation (Verschwinden nach x-Sekunden)
+
+// TODO: 12.
+// Löschenfeature: Mülleimer werden bei Hover weiß
+
+// TEST: Wie werden die Hausnummern nach der Zahl sortiert?
+// Kommt 3a vor 3b? Wie ist die Logik?

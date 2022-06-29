@@ -1,15 +1,87 @@
 <%- include('../partials/header.ejs') %>
 <table class="show-table">
     <tr>
-        <th>Firma</th>
-        <th>Vorname</th>
-        <th>Nachname</th>
-        <th>Postleitzahl</th>
-        <th>Stadt</th>
-        <th>Straße</th>
-        <th>Hausnummer</th>
-        <th>Adresszusatz</th>
-        <th>Produkt</th>
+        <th>
+            <form action="filter-Firma" class="filter-form" method="post">
+                <input type="submit" class="submit-filter-btn" value="Firma" />
+            </form>
+        </th>
+        <th>
+            <form action="filter-Vorname" class="filter-form" method="post">
+                <input
+                    type="submit"
+                    class="submit-filter-btn"
+                    value="Vorname"
+                />
+            </form>
+        </th>
+        <th>
+            <form action="filter-Nachname" class="filter-form" method="post">
+                <input
+                    type="submit"
+                    class="submit-filter-btn"
+                    value="Nachname"
+                />
+            </form>
+        </th>
+        <th>
+            <form
+                action="filter-Postleitzahl"
+                class="filter-form"
+                method="post"
+            >
+                <input
+                    type="submit"
+                    class="submit-filter-btn"
+                    value="Postleitzahl"
+                />
+            </form>
+        </th>
+        <th>
+            <form action="filter-Stadt" class="filter-form" method="post">
+                <input type="submit" class="submit-filter-btn" value="Stadt" />
+            </form>
+        </th>
+        <th>
+            <form action="filter-Strasse" class="filter-form" method="post">
+                <input
+                    type="submit"
+                    class="submit-filter-btn"
+                    value="Strasse"
+                />
+            </form>
+        </th>
+        <th>
+            <form action="filter-Hausnummer" class="filter-form" method="post">
+                <input
+                    type="submit"
+                    class="submit-filter-btn"
+                    value="Hausnummer"
+                />
+            </form>
+        </th>
+        <th>
+            <form
+                action="filter-Adresszusatz"
+                class="filter-form"
+                method="post"
+            >
+                <input
+                    type="submit"
+                    class="submit-filter-btn"
+                    value="Adresszusatz"
+                />
+            </form>
+        </th>
+        <th>
+            <form action="filter-Produkt" class="filter-form" method="post">
+                <input
+                    type="submit"
+                    class="submit-filter-btn"
+                    value="Produkt"
+                />
+            </form>
+        </th>
     </tr>
     <% data.forEach((date)=> { %>
     <tr>
@@ -18,7 +90,7 @@
         <td><%= date.Nachname %></td>
         <td><%= date.Postleitzahl %></td>
         <td><%= date.Stadt %></td>
-        <td><%= date.Straße %></td>
+        <td><%= date.Strasse %></td>
         <td><%= date.Hausnummer %></td>
         <td><%= date.Adresszusatz %></td>
         <td><%= date.Produkt %></td>

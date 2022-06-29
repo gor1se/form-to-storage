@@ -74,6 +74,25 @@ body {
 
 /* AREA: Buttons */
 
+.filter-form {
+    height: 100%;
+    width: 100%;
+}
+
+.submit-filter-btn {
+    background-color: var(--primary-white);
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+    height: 100%;
+    width: 100%;
+}
+
+.submit-filter-btn:hover {
+    background-color: lavender;
+    cursor: pointer;
+}
+
 .add-form-btn {
     background-color: var(--primary-blue);
     color: var(--primary-white);
