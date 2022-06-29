@@ -21,7 +21,6 @@ body {
 .flag {
     position: absolute;
     display: flex;
-    /* justify-content: space-between; */
     align-items: center;
     min-width: 400px;
     height: 30px;
@@ -70,6 +69,30 @@ body {
 
 .flag-failure-content {
     color: #000;
+}
+
+/* Flag Animation */
+
+.flag {
+    animation: flying-flag 10s linear forwards;
+}
+
+@keyframes flying-flag {
+    0% {
+        transform: translateX(-1000px);
+    }
+
+    2% {
+        transform: translateX(0px);
+    }
+
+    98% {
+        transform: translateX(0px);
+    }
+
+    100% {
+        transform: translateX(-1000px);
+    }
 }
 
 /* AREA: Buttons */
@@ -328,4 +351,8 @@ tr {
 .icon-bin {
     width: 32px;
     height: auto;
+}
+
+.icon-bin:hover {
+    color: var(--primary-white);
 }

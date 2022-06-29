@@ -60,10 +60,13 @@
                     class="icon-bin"
                     src="img/bin.png"
                     alt="Submit"
+                    onmouseover="hover(this);"
+                    onmouseout="unhover(this);"
                 />
             </form>
         </td>
     </tr>
     <% }) %>
 </table>
+<script src="js/delete-hover.js"></script>
 <%- include('../partials/footer.ejs', {flag: flag}) %>

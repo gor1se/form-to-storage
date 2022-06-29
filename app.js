@@ -303,12 +303,12 @@ app.listen(port, () => {
 // Nach dem Löschen eines Elements sollen die Suchkriterien nicht verschwinden
 // Die Seite soll einfach nochmal Laden und die gleichen Suckkriterien nochmal durchlaufen lassen
 
-// TODO: 11.
+// OK: 11.
 // Flagsystem animieren
 // Eingangsanimation
 // Ausgangsanimation (Verschwinden nach x-Sekunden)
 
-// TODO: 12.
+// OK: 12.
 // Löschenfeature: Mülleimer werden bei Hover weiß
 
 // TEST: Wie werden die Hausnummern nach der Zahl sortiert?
