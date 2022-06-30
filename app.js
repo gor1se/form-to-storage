@@ -47,7 +47,10 @@ app.get("/delete", (req, res) => {
     let dataJson = fs.readFileSync("data.json", "utf-8");
     let data = JSON.parse(dataJson);
 
-    res.render("pages/delete", { results: data, flag: flag });
+    res.render("pages/delete", {
+        results: data,
+        flag: flag,
+    });
 });
 
 app.get("/data-to-csv", (req, res) => {
@@ -135,7 +138,10 @@ app.post("/delete", (req, res) => {
         );
     });
 
-    res.render("pages/delete", { results: filteredArray, flag: flag });
+    res.render("pages/delete", {
+        results: filteredArray,
+        flag: flag,
+    });
 });
 
 app.post("/delete-item", (req, res) => {
@@ -164,7 +170,10 @@ app.post("/delete-item", (req, res) => {
     flag.type = "success";
     flag.content = `Der Datensatz ${deleteObj.Firma}, ${deleteObj.Vorname}, ${deleteObj.Nachname}, ${deleteObj.Stadt} wurder erfolgreich gelöscht`;
 
-    res.render("pages/delete", { results: [], flag: flag });
+    res.render("pages/delete", {
+        results: [],
+        flag: flag,
+    });
 });
 
 app.post("/filter-Firma", (req, res) => {
@@ -302,6 +311,22 @@ app.listen(port, () => {
 // TODO: 10.
 // Nach dem Löschen eines Elements sollen die Suchkriterien nicht verschwinden
 // Die Seite soll einfach nochmal Laden und die gleichen Suckkriterien nochmal durchlaufen lassen
+// 1. Jeder Löschbutton bekommt für jedes Suchkriterium ein hidden input mit dem Inhalt des Feldes
+// 2. Ein lokales Skript aktualisiert die Werte der versteckten Felder immer direkt nach einem Change
+// 3. Bei einem Post werden die Felder über den Bodyparser übermittelt und übernommen
+// 4. Nach dem nächsten Rendern werden die Daten wieder übergeben
+// 5. Bei der delete Seite wird überprüft ob die Elemente Leer sind oder einen Inhalt haben.
+// 6. Sind die Elemente Leer, wird ein normales Feld gerendered
+// 7. Sind die Elemente nicht Leer, dann werden die Daten aus dem Speicherobjekt verwendet.
+
+/*
+let searchCriteria = {
+    searchCompany: req.body.searchCompany,
+    searchFirstName: req.body.searchFirstName,
+    searchLastName: req.body.searchLastName,
+    searchCity: req.body.searchCity
+}
+*/
 
 // OK: 11.
 // Flagsystem animieren
@@ -311,5 +336,5 @@ app.listen(port, () => {
 // OK: 12.
 // Löschenfeature: Mülleimer werden bei Hover weiß
 
-// TEST: Wie werden die Hausnummern nach der Zahl sortiert?
+// OK: Wie werden die Hausnummern nach der Zahl sortiert?
 // Kommt 3a vor 3b? Wie ist die Logik?
