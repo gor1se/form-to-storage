@@ -1,10 +1,67 @@
 <%- include('../partials/header.ejs') %>
 <div class="search-options">
     <form action="" method="post">
-        <input type="text" name="searchCompany" id="" placeholder="Firma" />
-        <input type="text" name="searchFirstName" id="" placeholder="Vorname" />
-        <input type="text" name="searchLastName" id="" placeholder="Nachname" />
-        <input type="text" name="searchCity" id="" placeholder="Stadt" />
+        <% if(criteria.deleteCriteriaCompany !== ''){ %>
+        <input
+            type="text"
+            name="searchCompany"
+            id="searchCompany"
+            placeholder="Firma"
+            value="<%= criteria.deleteCriteriaCompany %>"
+        />
+        <% } else { %>
+        <input
+            type="text"
+            name="searchCompany"
+            id="searchCompany"
+            placeholder="Firma"
+        />
+        <% } %> <% if(criteria.deleteCriteriaFirstName !== ''){ %>
+        <input
+            type="text"
+            name="searchFirstName"
+            id="searchFirstName"
+            placeholder="Vorname"
+            value="<%= criteria.deleteCriteriaFirstName %>"
+        />
+        <% } else { %>
+        <input
+            type="text"
+            name="searchFirstName"
+            id="searchFirstName"
+            placeholder=" Vorname"
+        />
+        <% } %> <% if(criteria.deleteCriteriaLastName !== ''){ %>
+        <input
+            type="text"
+            name="searchLastName"
+            id="searchLastName"
+            placeholder="Nachname"
+            value="<%= criteria.deleteCriteriaLastName %>"
+        />
+        <% } else { %>
+        <input
+            type="text"
+            name="searchLastName"
+            id="searchLastName"
+            placeholder="Nachname"
+        />
+        <% } %> <% if(criteria.deleteCriteriaCity !== ''){ %>
+        <input
+            type="text"
+            name="searchCity"
+            id="searchCity"
+            placeholder="Stadt"
+            value="<%= criteria.deleteCriteriaCity %>"
+        />
+        <% } else { %>
+        <input
+            type="text"
+            name="searchCity"
+            id="searchCity"
+            placeholder="Stadt"
+        />
+        <% } %>
         <button type="submit" class="btn-primary">suchen</button>
     </form>
 </div>
@@ -62,6 +119,26 @@
                     alt="Submit"
                     onmouseover="hover(this);"
                     onmouseout="unhover(this);"
+                />
+                <input
+                    type="hidden"
+                    name="deleteCriteriaCompany"
+                    class="deleteCriteriaCompany"
+                />
+                <input
+                    type="hidden"
+                    name="deleteCriteriaFirstName"
+                    class="deleteCriteriaFirstName"
+                />
+                <input
+                    type="hidden"
+                    name="deleteCriteriaLastName"
+                    class="deleteCriteriaLastName"
+                />
+                <input
+                    type="hidden"
+                    name="deleteCriteriaCity"
+                    class="deleteCriteriaCity"
                 />
             </form>
         </td>

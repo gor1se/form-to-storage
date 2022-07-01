@@ -47,9 +47,17 @@ app.get("/delete", (req, res) => {
     let dataJson = fs.readFileSync("data.json", "utf-8");
     let data = JSON.parse(dataJson);
 
+    let deleteCriteria = {
+        deleteCriteriaCompany: "",
+        deleteCriteriaFirstName: "",
+        deleteCriteriaLastName: "",
+        deleteCriteriaCity: "",
+    };
+
     res.render("pages/delete", {
         results: data,
         flag: flag,
+        criteria: deleteCriteria,
     });
 });
 
@@ -138,9 +146,19 @@ app.post("/delete", (req, res) => {
         );
     });
 
+    let deleteCriteria = {
+        deleteCriteriaCompany: req.body.searchCompany,
+        deleteCriteriaFirstName: req.body.searchFirstName,
+        deleteCriteriaLastName: req.body.searchLastName,
+        deleteCriteriaCity: req.body.searchCity,
+    };
+
+    console.log(deleteCriteria);
+
     res.render("pages/delete", {
         results: filteredArray,
         flag: flag,
+        criteria: deleteCriteria,
     });
 });
 
@@ -170,9 +188,35 @@ app.post("/delete-item", (req, res) => {
     flag.type = "success";
     flag.content = `Der Datensatz ${deleteObj.Firma}, ${deleteObj.Vorname}, ${deleteObj.Nachname}, ${deleteObj.Stadt} wurder erfolgreich gelöscht`;
 
+    let deleteCriteria = {
+        deleteCriteriaCompany: req.body.deleteCriteriaCompany,
+        deleteCriteriaFirstName: req.body.deleteCriteriaFirstName,
+        deleteCriteriaLastName: req.body.deleteCriteriaLastName,
+        deleteCriteriaCity: req.body.deleteCriteriaCity,
+    };
+
+    // Hier nochmals die Daten Lesen und Filtern
+
+    let dataJsonAfterDelete = fs.readFileSync("data.json", "utf-8");
+    let dataAfterDelete = JSON.parse(dataJsonAfterDelete);
+
+    let newDataAfterDelete = dataAfterDelete.filter(date => {
+        return (
+            (date.Firma === deleteCriteria.deleteCriteriaCompany ||
+                deleteCriteria.deleteCriteriaCompany === "") &&
+            (date.Vorname === deleteCriteria.deleteCriteriaFirstName ||
+                deleteCriteria.deleteCriteriaFirstName === "") &&
+            (date.Nachname === deleteCriteria.deleteCriteriaLastName ||
+                deleteCriteria.deleteCriteriaLastName === "") &&
+            (date.Stadt === deleteCriteria.deleteCriteriaCity ||
+                deleteCriteria.deleteCriteriaCity === "")
+        );
+    });
+
     res.render("pages/delete", {
-        results: [],
+        results: newDataAfterDelete,
         flag: flag,
+        criteria: deleteCriteria,
     });
 });
 
@@ -308,25 +352,9 @@ app.listen(port, () => {
 // Vier Arrays zu verwenden ist zu umständlich
 // Arrayfunktionen verwenden (Filterfunktion kombinieren)
 
-// TODO: 10.
+// OK: 10.
 // Nach dem Löschen eines Elements sollen die Suchkriterien nicht verschwinden
 // Die Seite soll einfach nochmal Laden und die gleichen Suckkriterien nochmal durchlaufen lassen
-// 1. Jeder Löschbutton bekommt für jedes Suchkriterium ein hidden input mit dem Inhalt des Feldes
-// 2. Ein lokales Skript aktualisiert die Werte der versteckten Felder immer direkt nach einem Change
-// 3. Bei einem Post werden die Felder über den Bodyparser übermittelt und übernommen
-// 4. Nach dem nächsten Rendern werden die Daten wieder übergeben
-// 5. Bei der delete Seite wird überprüft ob die Elemente Leer sind oder einen Inhalt haben.
-// 6. Sind die Elemente Leer, wird ein normales Feld gerendered
-// 7. Sind die Elemente nicht Leer, dann werden die Daten aus dem Speicherobjekt verwendet.
-
-/*
-let searchCriteria = {
-    searchCompany: req.body.searchCompany,
-    searchFirstName: req.body.searchFirstName,
-    searchLastName: req.body.searchLastName,
-    searchCity: req.body.searchCity
-}
-*/
 
 // OK: 11.
 // Flagsystem animieren
