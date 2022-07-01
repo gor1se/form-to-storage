@@ -1,0 +1,58 @@
+Ziel: Fullstack Anwendung bei der Kunden ihre gesamten Kunden verwalten können.
+      Ebenso sollen wir die Kundenadressen und Produkte einsehen können.
+
+Was soll ein Händler alles erledigen können?
+- Einloggen
+- Produkte hinzufügen
+- Kunden einsehen
+- Kunden hinzufügen
+- Kunden löschen
+- Eigene Daten ändern
+
+Was sollen wir alles erledigen können?
+- Einloggen
+- Eigene Daten ändern
+- Händler anlegen
+- Händler einsehen
+- Kunden einsehen
+- Händler löschen
+- Kunden löschen
+- Kunden anlegen (Es gibt auch Kunden die bei uns direkt Dienstleistungen erhalten und keine Händler in Anspruch nehmen)
+
+Technische Details der Anwendungen:
+- Node, NPM und ExpressJS
+- Viewengine EJS
+- Bodyparser
+- Public Ordner img, css, js
+- Views Ordner mit partials und pages
+- Datanbank über MongoDB
+- Externe Routes für Express mit jeweiligem import
+- Externe dbs Datei
+
+Datenkonzepte:
+Wichtig ist ein unic identifier
+FeineFracht {
+    usrNM:
+    pw:
+    Kunden: array
+    Händler: array
+}
+
+Händler {
+    Händlernummer
+    usrNM:
+    pw:
+    Adresse:
+    email:
+    Kunden: array
+    Produkte: array 
+}
+
+Kunde {
+    Kundennummer:
+    Adresse:
+    Kontaktdaten:
+    MeineHändler: array
+    Produkt: array
+}
+
